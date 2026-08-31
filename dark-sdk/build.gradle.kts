@@ -10,9 +10,6 @@ android {
 
     defaultConfig {
         minSdk = 24
-        targetSdk = 34
-        versionCode = 200
-        versionName = "2.0.0-ELITE"
         consumerProguardFiles("proguard-rules.pro")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         // Elite Core: expose build flags for D/Z/B selection
@@ -27,14 +24,12 @@ android {
     productFlavors {
         create("bCore") {
             dimension = "core"
-            versionNameSuffix = "-B-CORE"
             buildConfigField("String", "CORE_TYPE", "\"B_CORE\"")
             buildConfigField("String", "CORE_VARIANT", "\"B\"")
         }
         create("dCore") {
             dimension = "core"
             // D CORE = Daemon-driven Elite core (recommended for BGMI/PUBG)
-            versionNameSuffix = "-D-CORE"
             buildConfigField("String", "CORE_TYPE", "\"D_CORE\"")
             buildConfigField("String", "CORE_VARIANT", "\"D\"")
             buildConfigField("boolean", "USE_DAEMON_CORE", "true")
@@ -42,7 +37,6 @@ android {
         create("zCore") {
             dimension = "core"
             // Z CORE = Zygote-injected Elite core (fast fork, low latency)
-            versionNameSuffix = "-Z-CORE"
             buildConfigField("String", "CORE_TYPE", "\"Z_CORE\"")
             buildConfigField("String", "CORE_VARIANT", "\"Z\"")
             buildConfigField("boolean", "USE_ZYGOTE_CORE", "true")
@@ -51,15 +45,15 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled = true
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
         debug {
-            minifyEnabled = false
-            debuggable = true
+            isMinifyEnabled = false
+            isDebuggable = true
         }
     }
 
@@ -127,14 +121,15 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java).conf
 group = "com.dark.sdk"
 version = "2.0.0-ELITE"
 
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "com.dark.sdk"
-            artifactId = "dark-elite-sdk"
-            version = "2.0.0-ELITE"
-            // Elite: with flavors, bCoreRelease is default
-            from(components["bCoreRelease"])
+// Delay publishing until components are created (library with flavors)
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("maven") {
+                groupId = "com.dark.sdk"
+                artifactId = "dark-elite-sdk"
+                version = "2.0.0-ELITE"
+                from(components["bCoreRelease"])
             
             pom {
                 name.set("DARK ELITE SDK 2.0 - D/Z/B CORE Professional Virtualization")
@@ -161,4 +156,4 @@ publishing {
             }
         }
     }
-}
+}}
