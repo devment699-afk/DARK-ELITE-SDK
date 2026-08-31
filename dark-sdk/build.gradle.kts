@@ -27,7 +27,6 @@ android {
     productFlavors {
         create("bCore") {
             dimension = "core"
-            applicationIdSuffix = ".bcore"
             versionNameSuffix = "-B-CORE"
             buildConfigField("String", "CORE_TYPE", "\"B_CORE\"")
             buildConfigField("String", "CORE_VARIANT", "\"B\"")
@@ -35,7 +34,6 @@ android {
         create("dCore") {
             dimension = "core"
             // D CORE = Daemon-driven Elite core (recommended for BGMI/PUBG)
-            applicationIdSuffix = ".dcore"
             versionNameSuffix = "-D-CORE"
             buildConfigField("String", "CORE_TYPE", "\"D_CORE\"")
             buildConfigField("String", "CORE_VARIANT", "\"D\"")
@@ -44,7 +42,6 @@ android {
         create("zCore") {
             dimension = "core"
             // Z CORE = Zygote-injected Elite core (fast fork, low latency)
-            applicationIdSuffix = ".zcore"
             versionNameSuffix = "-Z-CORE"
             buildConfigField("String", "CORE_TYPE", "\"Z_CORE\"")
             buildConfigField("String", "CORE_VARIANT", "\"Z\"")
@@ -136,7 +133,8 @@ publishing {
             groupId = "com.dark.sdk"
             artifactId = "dark-elite-sdk"
             version = "2.0.0-ELITE"
-            from(components["release"])
+            // Elite: with flavors, bCoreRelease is default
+            from(components["bCoreRelease"])
             
             pom {
                 name.set("DARK ELITE SDK 2.0 - D/Z/B CORE Professional Virtualization")
