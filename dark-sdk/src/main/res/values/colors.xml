@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- DARK SDK Brand Colors -->
+    <color name="dark_primary">#1A1A2E</color>
+    <color name="dark_primary_variant">#16213E</color>
+    <color name="dark_secondary">#0F3460</color>
+    <color name="dark_secondary_variant">#533483</color>
+    <color name="dark_background">#0D0D1A</color>
+    <color name="dark_surface">#1A1A2E</color>
+    <color name="dark_error">#E94560</color>
+    <color name="dark_accent">#00D9FF</color>
+    <color name="dark_accent_secondary">#FF6B6B</color>
+    
+    <!-- Light theme colors -->
+    <color name="light_background">#F8F9FA</color>
+    <color name="light_surface">#FFFFFF</color>
+    
+    <!-- Status colors -->
+    <color name="status_success">#00C853</color>
+    <color name="status_warning">#FFD600</color>
+    <color name="status_error">#E94560</color>
+    <color name="status_info">#00D9FF</color>
+    
+    <!-- Standard colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+    
+    <!-- Text colors -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B0BEC5</color>
+    <color name="text_disabled">#546E7A</color>
+    <color name="text_on_primary">#FFFFFF</color>
+    <color name="text_on_surface">#FFFFFF</color>
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DARK SDK</string>
+    <string name="sdk_name">DARK SDK</string>
+    <string name="sdk_version">1.0.0</string>
+    
+    <!-- License strings -->
+    <string name="license_activating">Activating license...</string>
+    <string name="license_activated">License activated successfully</string>
+    <string name="license_failed">License activation failed</string>
+    <string name="license_expired">License has expired</string>
+    <string name="license_invalid">Invalid license key</string>
+    <string name="license_server_offline">License server is offline</string>
+    <string name="license_server_maintenance">License server under maintenance</string>
+    
+    <!-- Environment strings -->
+    <string name="env_creating">Creating virtual environment...</string>
+    <string name="env_starting">Starting environment...</string>
+    <string name="env_stopping">Stopping environment...</string>
+    <string name="env_started">Environment started</string>
+    <string name="env_stopped">Environment stopped</string>
+    <string name="env_error">Environment error</string>
+    <string name="env_not_found">Environment not found</string>
+    <string name="env_already_running">Environment already running</string>
+    
+    <!-- Error strings -->
+    <string name="error_not_initialized">SDK not initialized</string>
+    <string name="error_network">Network error</string>
+    <string name="error_permission">Permission denied</string>
+    <string name="error_unknown">Unknown error</string>
+    
+    <!-- Notifications -->
+    <string name="notification_channel_license">License Updates</string>
+    <string name="notification_channel_env">Environment Status</string>
+    <string name="notification_channel_daemon">Daemon Service</string>
+</resources>

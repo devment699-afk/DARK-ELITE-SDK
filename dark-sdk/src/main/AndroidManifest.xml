@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.dark.sdk">
+
+    <!-- Required permissions for virtualization features -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- ELITE FIX: Mic permissions -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.CAPTURE_AUDIO_OUTPUT" tools:ignore="ProtectedPermissions" />
+
+    <!-- Optional permissions for advanced features -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" 
+        tools:ignore="ScopedStorage" />
+    
+    <application
+        android:allowBackup="false"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.DarkSdk"
+        tools:replace="android:allowBackup,android:theme">
+        
+        <!-- License service for background license validation -->
+        <service
+            android:name="com.dark.sdk.internal.LicenseService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse" />
+        
+        <!-- Environment daemon service -->
+        <service
+            android:name="com.dark.sdk.internal.EnvironmentDaemonService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse"
+            android:process=":dark_daemon" />
+        
+        <!-- AIDL interfaces for IPC -->
+        <service
+            android:name="com.dark.sdk.internal.IEnvironmentManagerService"
+            android:exported="true"
+            android:permission="com.dark.sdk.permission.BIND_ENVIRONMENT_SERVICE">
+            <intent-filter>
+                <action android:name="com.dark.sdk.IEnvironmentManagerService" />
+            </intent-filter>
+        </service>
+
+        <!-- ELITE FIX: Twitter OAuth callback -->
+        <activity
+            android:name="com.dark.sdk.auth.TwitterCallbackActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="dark-elite-twitter" android:host="callback" />
+            </intent-filter>
+        </activity>
+
+        <!-- ELITE FIX: Facebook OAuth callback - also add fb{appId} scheme dynamically via manifest merger -->
+        <activity
+            android:name="com.dark.sdk.auth.FacebookCallbackActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="fbElitePlaceholder" />
+            </intent-filter>
+        </activity>
+
+        <!-- Host should also add: <data android:scheme="fbYOUR_APP_ID" /> via tools:replace or API init -->
+        
+    </application>
+
+    <!-- Custom permissions -->
+    <permission
+        android:name="com.dark.sdk.permission.BIND_ENVIRONMENT_SERVICE"
+        android:protectionLevel="signature" />
+    <permission
+        android:name="com.dark.sdk.permission.MANAGE_ENVIRONMENTS"
+        android:protectionLevel="signature" />
+    
+</manifest>

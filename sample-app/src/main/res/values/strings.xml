@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DARK SDK Demo</string>
+    
+    <!-- Dark theme colors -->
+    <color name="dark_primary">#1A1A2E</color>
+    <color name="dark_primary_variant">#16213E</color>
+    <color name="dark_secondary">#0F3460</color>
+    <color name="dark_secondary_variant">#533483</color>
+    <color name="dark_background">#0D0D1A</color>
+    <color name="dark_surface">#1A1A2E</color>
+    <color name="dark_error">#E94560</color>
+    <color name="dark_accent">#00D9FF</color>
+    <color name="dark_accent_secondary">#FF6B6B</color>
+    
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B0BEC5</color>
+    <color name="text_disabled">#546E7A</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>
