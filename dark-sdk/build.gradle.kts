@@ -67,6 +67,7 @@ android {
 
     buildFeatures {
         aidl = true
+        buildConfig = true
     }
 
     packaging {
@@ -128,7 +129,7 @@ afterEvaluate {
                 groupId = "com.dark.sdk"
                 artifactId = "dark-elite-sdk"
                 version = "2.0.0-ELITE"
-                from(components["bCoreRelease"])
+                from(components.findByName("bCoreRelease") ?: components.findByName("release") ?: components.first())
             
             pom {
                 name.set("DARK ELITE SDK 2.0 - D/Z/B CORE Professional Virtualization")
