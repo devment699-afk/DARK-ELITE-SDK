@@ -1,7 +1,7 @@
 package com.dark.sdk.utils
 
 import android.util.Log
-import com.dark.sdk.api.DarkConfig.LogLevel
+import com.dark.sdk.api.LogLevel
 
 /**
  * Professional logging utility for DARK SDK
@@ -61,5 +61,6 @@ class DarkLogger private constructor(private val minLevel: LogLevel) {
     fun d(message: String) = d("SDK", message)
     fun i(message: String) = i("SDK", message)
     fun w(message: String) = w("SDK", message)
+    fun w(message: String, throwable: Throwable?) = w("SDK", "$message: ${throwable?.message}")
     fun e(message: String, throwable: Throwable? = null) = e("SDK", message, throwable)
 }

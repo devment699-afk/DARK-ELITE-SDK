@@ -4,9 +4,12 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.dark.sdk.api.*
 import com.dark.sdk.utils.DarkLogger
+import com.dark.sdk.BuildConfig
 import com.dark.sdk.utils.NetworkUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.net.HttpURLConnection
@@ -61,13 +64,13 @@ class LicenseManager(
         if (!activated) return false
         
         val expiryStr = prefs.getString(KEY_EXPIRY, "")
-        if (expiryStr.isNotEmpty()) {
+        if (!expiryStr.isNullOrEmpty()) {
             return try {
                 val sdf = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
                 val expiryDate = sdf.parse(expiryStr)
                 expiryDate?.time ?: 0 > System.currentTimeMillis()
             } catch (e: Exception) {
-                logger.w("Error parsing expiry date", e)
+                logger.w("Error parsing expiry date: ${e.message}")
                 true
             }
         }
@@ -101,7 +104,7 @@ class LicenseManager(
             customFeature2 = prefs.getBoolean(KEY_FEATURE_CUSTOM2, false)
         )
         
-        val serverStatus = when (serverStatusStr.lowercase(Locale.ROOT)) {
+        val serverStatus = when ((serverStatusStr ?: "unknown").lowercase(Locale.ROOT)) {
             "online" -> ServerStatus.ONLINE
             "offline" -> ServerStatus.OFFLINE
             "maintenance" -> ServerStatus.MAINTENANCE
