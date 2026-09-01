@@ -34,13 +34,13 @@
         <service
             android:name="com.dark.sdk.internal.LicenseService"
             android:exported="false"
-            android:foregroundServiceType="specialUse" />
+            />
         
         <!-- Environment daemon service -->
         <service
             android:name="com.dark.sdk.internal.EnvironmentDaemonService"
             android:exported="false"
-            android:foregroundServiceType="specialUse"
+           
             android:process=":dark_daemon" />
         
         <!-- AIDL interfaces for IPC -->
