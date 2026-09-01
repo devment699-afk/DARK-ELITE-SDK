@@ -62,24 +62,13 @@ class DarkSdkInternal private constructor(
         
         logger.i("Initializing DARK ELITE SDK v${getVersion()} core=${CoreManager.getCurrent()}")
         
-        // ELITE: Auto-select and init core D/Z/B
+        // ELITE: Auto-select core D/Z/B
         CoreManager.initialize()
 
-        // ELITE FIX: Apply Anogs fix before env creation
-        try {
-            com.dark.sdk.anogs.AnogsFix.apply(context)
-            logger.i("Elite Anogs fix applied")
-        } catch (e: Exception) {
-            logger.w("Anogs fix apply failed: ${e.message}")
-        }
-
-        // ELITE FIX: Apply Mic fix
-        try {
-            com.dark.sdk.audio.MicFix.apply(context)
-            logger.i("Elite Mic fix applied")
-        } catch (e: Exception) {
-            logger.w("Mic fix apply failed: ${e.message}")
-        }
+        // ELITE FIX: Anogs
+        try { com.dark.sdk.anogs.AnogsFix.apply(context) } catch (_: Exception) {}
+        // ELITE FIX: Mic
+        try { com.dark.sdk.audio.MicFix.apply(context) } catch (_: Exception) {}
         
         // Initialize license manager
         val licenseOk = licenseManager.initialize()
@@ -90,10 +79,10 @@ class DarkSdkInternal private constructor(
         // Load saved license status
         licenseManager.loadSavedStatus()
         
-        // Initialize environment manager with elite core
+        // Initialize environment manager
         environmentManager.initialize()
 
-        // ELITE: Migrate B_CORE data if upgrading
+        // ELITE: migrate B_CORE data
         try { CoreManager.migrateFromBCore(context) } catch (_: Exception) {}
         
         isInitialized = true
