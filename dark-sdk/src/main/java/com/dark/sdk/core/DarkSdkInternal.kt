@@ -96,7 +96,7 @@ class DarkSdkInternal private constructor(
         return isInitialized && !isShutdown && licenseManager.isLicensed()
     }
     
-    override fun getVersion(): String = try { BuildConfig.VERSION_NAME } catch (_: Exception) { "2.0.0-ELITE" }
+    override fun getVersion(): String = "2.0.0-ELITE"
     
     override fun getLicenseStatus(): LicenseStatus {
         return licenseManager.getCurrentStatus()
