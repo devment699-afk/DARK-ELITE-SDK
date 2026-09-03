@@ -10,6 +10,7 @@ import com.dark.sdk.internal.EnvironmentManager
 import com.dark.sdk.utils.DarkLogger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import java.util.concurrent.ConcurrentHashMap
 
@@ -21,6 +22,7 @@ class DarkSdkInternal private constructor(
     private val context: Context,
     private val config: DarkConfig
 ) : IDarkSdk {
+    override fun asBinder(): android.os.IBinder = android.os.Binder()
     
     companion object {
         @Volatile
@@ -94,7 +96,7 @@ class DarkSdkInternal private constructor(
         return isInitialized && !isShutdown && licenseManager.isLicensed()
     }
     
-    override fun getVersion(): String = BuildConfig.VERSION_NAME
+    override fun getVersion(): String = try { BuildConfig.VERSION_NAME } catch (_: Exception) { "2.0.0-ELITE" }
     
     override fun getLicenseStatus(): LicenseStatus {
         return licenseManager.getCurrentStatus()
@@ -171,7 +173,7 @@ class DarkSdkInternal private constructor(
 /**
  * Internal environment handle implementation
  */
-internal class EnvironmentHandleImpl(
+class EnvironmentHandleImpl(
     override val id: String,
     override val packageName: String,
     private val config: EnvironmentConfig,

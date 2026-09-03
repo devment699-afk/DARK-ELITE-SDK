@@ -196,13 +196,13 @@ class LicenseManager(
             readTimeout = 30000
             doOutput = true
             setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
-            setRequestProperty("User-Agent", "DarkSDK/${BuildConfig.VERSION_NAME}")
+            setRequestProperty("User-Agent", "DarkSDK/${try { BuildConfig.VERSION_NAME } catch (_: Exception) { "2.0.0-ELITE" }}")
         }
         
         val postData = "user_key=${URLEncoder.encode(userKey, "UTF-8")}" +
             "&package_name=${URLEncoder.encode(context.packageName, "UTF-8")}" +
             "&device_id=${URLEncoder.encode(NetworkUtils.getDeviceId(context), "UTF-8")}" +
-            "&sdk_version=${URLEncoder.encode(BuildConfig.VERSION_NAME, "UTF-8")}"
+            "&sdk_version=${URLEncoder.encode(try { BuildConfig.VERSION_NAME } catch (_: Exception) { "2.0.0-ELITE" }, "UTF-8")}"
         
         connection.outputStream.use { it.write(postData.toByteArray()) }
         

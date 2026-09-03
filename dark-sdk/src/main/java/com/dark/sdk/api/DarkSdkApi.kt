@@ -109,8 +109,8 @@ interface LicenseCallback {
  * License error types
  */
 sealed class LicenseError(
-    val code: Int,
-    val message: String
+    open val code: Int,
+    open val message: String
 ) {
     data class NetworkError(override val message: String) : LicenseError(-1, message)
     data class ServerError(override val code: Int, override val message: String) : LicenseError(code, message)
@@ -118,6 +118,7 @@ sealed class LicenseError(
     data class Expired(override val message: String) : LicenseError(401, message)
     data class Maintenance(override val message: String) : LicenseError(503, message)
     data class Unknown(override val message: String) : LicenseError(-999, message)
+    data class NotInitialized(override val message: String) : LicenseError(-2, message)
 }
 
 /**
@@ -209,8 +210,8 @@ data class EnvironmentStats(
  * Environment error types
  */
 sealed class EnvironmentError(
-    val code: Int,
-    val message: String
+    open val code: Int,
+    open val message: String
 ) {
     data class NotInitialized(override val message: String) : EnvironmentError(-1, message)
     data class NotFound(override val message: String) : EnvironmentError(404, message)

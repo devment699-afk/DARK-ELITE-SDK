@@ -22,7 +22,7 @@ import com.dark.sdk.utils.DarkLogger
  * 4. Echo / loop due to not handling AudioManager mode -> elite mode fix
  * 5. Mic muted after app switch (AudioFocus loss) -> elite focus hook
  * 6. QTAudioEngine (Tencent) specific bug on Android 13+ -> elite native patch
- * 7. Scooped /dev/snd/* permission denied in virtual env -> elite audio server proxy
+ * 7. Scooped /dev/snd permission denied in virtual env -> elite audio server proxy
  */
 object MicFix {
 
